@@ -24,13 +24,23 @@ const reportTests = (client, launchObj, suiteObj, tests) => {
     // Change status from 'pending' to 'skipped' so the launch finish
     // the ran, instead of stay in running status forever.
     const testStatus = test.status === 'pending' ? 'skipped' : test.status;
-
-    const testFinishObj = client.finishTestItem(testObj.tempId, {
+    
+    const finishTestObj =  {
       status: testStatus,
       end_time: client.helpers.now(),
       issue: test.issue
-    });
-
+    };
+    
+  	if (testStatus === 'failed') {
+      const message = `${JSON.stringify(failureMessages)} `;
+      finishTestObj.description = `${message}`;
+      client.sendLog(testObj.tempId {
+        level: 'error',
+        message,
+      });
+    }
+    
+    const testFinishObj = client.finishTestItem(testObj.tempId, finishTestObj);
   });
 
 };
