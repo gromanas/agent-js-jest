@@ -80,7 +80,8 @@ const processor = (report, reporterOptions = {}) => {
     token: process.env.RP_TOKEN,
     endpoint: options.endpoint,
     launch: process.env.RP_LAUNCH_NAME || options.launchname || 'Unit Tests',
-    project: process.env.RP_PROJECT_NAME || options.project
+    project: process.env.RP_PROJECT_NAME || options.project,
+    description: 'Description of the suite'
   });
   const endTime = rpClient.helpers.now();
 
